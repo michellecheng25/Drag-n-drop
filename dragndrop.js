@@ -108,6 +108,7 @@ $(document).ready(function () {
 
 
   $("#check").click(function(){
+    $(".draggable_item").draggable("disable").css("opacity", "0.7");
     $(".answers").each(function(index){
       var chin = $(this).find(".draggable_item").html();
       console.log(chin);
