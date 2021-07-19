@@ -77,7 +77,7 @@ $(document).ready(function () {
       <div class="col col-4 answers">
         <div class="drop_container" style="border: 1px solid black; min-width: 50px; width: 75%; max-width: 150px; height: 75%; text-align: center; margin: auto; position: absolute; top: 0px; left: 0px; right: 0px; bottom:0px; border-radius: 5px;"></div>
       </div>
-      <div class="col col-4">
+      <div class="col col-4 choices">
         <div class="drop_container" style="background-color: lightgrey; min-width: 50px; width: 75%; max-width: 150px; height: 75%; text-align: center;  margin: auto; position: absolute; top: 0px; left: 0px; right: 0px; bottom:0px; border-radius: 5px;">
           <div class="draggable_item" style="height: 50px; min-width: 50px; max-width: 150px; height: 100%; display: flex; align-items: center; justify-content: center; background: #d0ddf2; box-shadow: 5px 5px 5px #8080807d; border-radius: 5px;">${dict[choices[i]].Chinese}</div>
         </div>
@@ -108,7 +108,6 @@ $(document).ready(function () {
 
 
   $("#check").click(function(){
-    $(".draggable_item").draggable("disable").css("opacity", "0.7");
     $(".answers").each(function(index){
       var chin = $(this).find(".draggable_item").html();
       console.log(chin);
@@ -125,5 +124,20 @@ $(document).ready(function () {
     console.log(correctness);
 
   });
+
+  //auto move item from answer box back to choices list
+  $(".container").on(
+    "click",
+    ".answers > .drop_container > .draggable_item",
+    function () {
+      var draggableitem = $(this);
+      $(".choices > .drop_container").each(function () {
+        if ($(this).find(".draggable_item").length == 0) {
+          draggableitem.appendTo($(this));
+          return false; // return false to break out of each function
+        }
+      });
+    }
+  );
 	
 });
